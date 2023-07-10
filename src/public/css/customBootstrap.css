@@ -1,0 +1,102 @@
+.modal-backdrop.show {
+  opacity: 0 !important;
+}
+.modal.fade .modal-dialog {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.modal-dialog {
+  top: 10vh;
+}
+
+.form-control {
+  max-width: 100%;
+  padding: 1rem 1.6rem 1rem 1rem;
+  font-size: 1.2rem;
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #000;
+  line-height: calc(16 / 12);
+  margin-bottom: 4px;
+}
+.form-control:focus {
+  box-shadow: unset;
+}
+.btns {
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  min-width: 70px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+.btn-closed {
+  border: 1px solid #ca2e16;
+  color: #ca2e16;
+  background-color: #fcebe8;
+}
+.btn-closed:hover,
+.btn-closed:focus {
+  color: #fff;
+  background-color: #ca2e16;
+}
+.btn-save {
+  background-color: #0835d9;
+  color: #fff;
+  border: 1px solid #0835d9;
+  margin-left: 1rem;
+}
+
+.btn-save:hover,
+.btn-save:focus {
+  opacity: 0.8;
+}
+
+.icon-link {
+  color: #0835d9 !important;
+  cursor: pointer;
+}
+.icon-link:hover {
+  color: #ca2e16 !important;
+}
+
+.dt-center {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 6px;
+  margin: 0 0.6rem;
+}
+
+.modal-title {
+  font-weight: 600;
+}
+.input-readonly {
+  background-color: #ddd;
+  outline: unset;
+  border: unset;
+}
+.input-readonly:hover,
+.input-readonly:focus {
+  outline: unset;
+  border: unset;
+  background-color: #ddd;
+}
+
+.iconui-remove.icon-link {
+  color: #ca2e16 !important;
+}
+.iconui-remove.icon-link:hover{
+  color: red !important;
+}
+
+.add-new .btn-addNew:hover{
+  background-color: #0835d9;
+    color: #fff;
+}

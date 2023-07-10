@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/danhsach.css">
+        <link rel="stylesheet" href="/css/iconui.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/customBootstrap.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+        <style>
+            .dataTables_wrapper .dataTables_filter {
+                float: left;
+                width: 0;
+            }
+
+            .filter-table {
+                width: 79%;
+                float: right;
+            }
+
+            .dataTables_wrapper .dataTables_filter input {
+                margin-top: 0;
+                width: 300px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="header">
+            <span class="header-subTitle">
+                Quản lý danh mục
+            </span>
+            <span>-</span>
+            <span class="header-mainTitle">Danh mục loại kho</span>
+        </div>
+        <div class="add-new">
+            <button class="btn dt-center btn-addNew" id="btnAddNew">
+                + Thêm mới
+            </button>
+        </div>
+        <table id="example" class="display" style="width:100%">
+            <thead class="title-column">
+                <tr>
+                    <th style="width:10%;">Mã/Ký hiệu</th>
+                    <th style="width:15%;">Tên loại kho</th>
+                    <th style="width:5%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <!-- The Modal add-->
+        <div class="modal fade" id="myModal0">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tạo mới bản ghi</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <div class="form-group">
+                                <label for="addID">Mã/ký hiệu</label>
+                                <input type="text" class="form-control" id="addID" name="id" placeholder="Nhập mã, ký hiệu">
+                            </div>
+                            <div class="form-group">
+                                <label for="addName">Tên loại kho</label>
+                                <input type="text" class="form-control" id="addName" name="name" placeholder="Nhập tên loại kho">
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btns btn-save" id="add-record">Thêm mới</button>
+                        <button type="button" class="btns btn-closed" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thay đổi thông tin #<span class="editIDValue"></span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <div class="form-group">
+                                <label for="editID">Mã/ký hiệu</label>
+                                <input type="text" class="form-control input-readonly" id="editID" name="id" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="editName">Tên loại kho</label>
+                                <input type="text" class="form-control" id="editName" name="name" placeholder="Nhập tên loại kho">
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btns btn-save" id="saveChanges">Lưu</button>
+                        <button type="button" class="btns btn-closed" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal 1-->
+        <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Xóa bản ghi #<span class="editIDValue"></span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p style="font-size: 1.2rem;">Bạn có chắc chắn muốn xóa thông tin của này không?</p>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btns btn-closed" id="deleteChanges">Xóa</button>
+                        <button type="button" class="btns" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/jquery-3.5.1.js"></script>
+        <script src="/js/jquery.dataTables.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var table = new DataTable('#example', {
+                    order: [[0, 'asc']],
+                    "language": {
+                        "search": "",
+                        "searchPlaceholder": "Nhập từ khóa tìm kiếm...",
+                        "info": "Hiển thị _START_ - _END_ của _TOTAL_ bản ghi",
+                        "infoEmpty": "Không tìm thấy bản ghi nào.",
+                        "infoFiltered": "(Lọc từ _MAX_ bản ghi)",
+                        "lengthMenu": "Hiển thị _MENU_ bản ghi",
+                        "zeroRecords": "Không tìm thấy bản ghi nào",
+                        paginate: {
+                            previous: "Trước",
+                            next: "Sau"
+                        },
+                    },
+                    "pageLength": 10,
+                    ajax: {
+                        url: 'dmWarehouse/api',
+                        type: 'GET',
+                    },
+                    columns: [
+                        { data: 'ID' },
+                        { data: 'NAME' },
+                        {
+                            data: null,
+                            className: "editor-action",
+                            render: function (data, type, row) {
+                                return '<button class="dt-center editor-edit" data-action="edit"><i class="iconui-edit-pen-file icon-link"></i></button>' +
+                                    '<button class="dt-center editor-delete" data-action="delete"><i class="iconui-remove icon-link"></i></button>';
+                            },
+                            orderable: false
+                        }
+                    ],
+                    deferLoading: 10,
+                });
+                $('#btnAddNew').click(function () {
+                    // Hiển thị popup thêm mới
+                    $('#myModal0').modal('show');
+                    $('#add-record').click(function () {
+                        var id = $('#addID').val();
+                        var name = $('#addName').val();
+                        if (!id || !name) {
+                            alert('Vui lòng điền đầy đủ thông tin');
+                            return;
+                        }
+                        // Gửi yêu cầu lưu bản ghi mới
+                        $.ajax({
+                            url: 'dmWarehouse/create',
+                            method: 'POST',
+                            data: {
+                                id: id,
+                                name: name
+                            },
+                            success: function (res) {
+                                if (res.success) {
+                                    $('#myModal0').modal('hide');
+                                    // Làm mới datatable để hiển thị bản ghi mới
+                                    $('#example').DataTable().ajax.reload();
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(error);
+                            }
+                        });
+                    });
+                });
+
+                $('#example').on('click', '.editor-edit, .editor-delete', function () {
+                    var rowData = table.row($(this).closest('tr')).data();
+                    var recordId = rowData.ID;
+                    var name = rowData.NAME;
+                    // Đổ dữ liệu vào form
+                    $('#editID').val(recordId);
+                    $('#editName').val(name);
+                    $('.editIDValue').text(name);
+                    // Chọn modal phù hợp dựa trên lớp của nút được nhấn
+                    var modalId = ($(this).hasClass('editor-edit')) ? '#myModal' : '#myModal1';
+                    // Hiển thị popup phù hợp
+                    $(modalId).modal('show');
+
+                });
+                //save update
+                $('#saveChanges').on('click', function () {
+                    var recordId = $('#editID').val();
+                    var name = $('#editName').val();
+                    console.log(recordId);
+
+                    if (name.trim() === '') {
+                        alert('Vui lòng nhập đầy đủ thông tin!');
+                        return;
+                    }
+                    $.ajax({
+                        url: 'dmWarehouse/update/' + recordId,
+                        type: 'PUT',
+                        data: { id: recordId, name: name },
+                        success: function (res) {
+                            if (res.success) {
+                                $('#myModal').modal('hide');
+                                $('#example').DataTable().ajax.reload();
+                            }
+                        },
+                        error: function () {
+                            alert('An error occurred while updating the record.');
+                        }
+                    });
+                });
+                //xóa bản ghi
+                $('#deleteChanges').on('click', function () {
+                    var recordId = $('#editID').val();
+                    var recordName = $('#editName').val();
+                    // console.log(recordId);
+                    $.ajax({
+                        url: 'dmWarehouse/delete/' + recordId,
+                        type: 'DELETE',
+                        success: function (res) {
+                            if (res.success) {
+                                $('#myModal1').modal('hide');
+                                $('#example').DataTable().ajax.reload();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Lỗi", error);
+                        }
+                    });
+
+                });
+            });
+        </script>
+    </body>
+
+</html>

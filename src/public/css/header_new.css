@@ -1,0 +1,5 @@
+* { box-sizing: border-box;padding: 0;margin: 0;-moz-box-sizing: border-box;font-size: 0.9rem;}
+.dsns {font-size: 17px;color: #97A0AF;line-height: 24px;font-weight: 600;font-family:Be Vietnam Pro;}
+.thongtinns {color: #000;font-size: 17px;font-weight: 600;font-family:Be Vietnam Pro;}
+.title-contact {padding-bottom: 10px;border-bottom: 1px dashed #EBECF0;}
+.status{background-color: #DEE9FF;color: #062BB1;padding: 4px 10px;font-weight:600; font-family: Be Vietnam Pro;border-radius:4px}

@@ -1,0 +1,112 @@
+﻿@import url('./reset.css');
+
+/*thin = 100; extra light =200;light:300 ; 
+nomal = 400 ;medium = 500; bold = 700 ; 
+Semi Bold = 600 ; Extra Bold  = 800 */
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-Thin.ttf') format('truetype');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../font/BeVietnamPro-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'BeVietNam Pro';
+    src: url('../fontF/BeVietnamPro-Black.ttf') format('truetype');
+    font-weight: 900;
+}
+
+/* Custom CSS Style phải gọi vào các class/ID hoặc có parent element */
+/* Ví dụ : Bạn nên code vào .button thay vì a.button. */
+:root {
+  --text-color: #97a0af;
+  --primary-color: #091e42;
+  --border-color: #b3bac5;
+  --disable-color: #ebecf0;
+  --link-color: #0835d9;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  /* 100% =16px  1rem = 16px*/
+  font-size: 62.5%;
+  /* tương ứng 62.5% = 10px  */
+  font-family: "BeVietNam Pro", sans-serif !important;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #ffce5c;
+  color: #091e92;
+}
+
+.color-link {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.color-link:hover {
+  color: #062bb1;
+  text-decoration: underline;
+}
+.linkicon{
+	text-decoration: none;
+}
+.linkicon i {
+  color: var(--link-color);
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.linkicon i:hover {
+  color: #e73d23;
+}
